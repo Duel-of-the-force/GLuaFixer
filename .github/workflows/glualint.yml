@@ -67,7 +67,7 @@ jobs:
           fi
 
       - name: Lint and Pretty Print with GLuaLint
-        if: ${{ inputs.prettyprint == 'true' }}
+        if: ${{ inputs.prettyprint == true }}
         run: |
           cd "$GITHUB_WORKSPACE/project/"
           if [[ "${{ inputs.config }}" != "" ]];
@@ -78,7 +78,7 @@ jobs:
           fi
 
       - name: Lint with GLuaLint
-        if: ${{ inputs.prettyprint == 'false' }}
+        if: ${{ inputs.prettyprint == false }}
         run: |
           cd "$GITHUB_WORKSPACE/project/"
           if [[ "${{ inputs.config }}" != "" ]];
