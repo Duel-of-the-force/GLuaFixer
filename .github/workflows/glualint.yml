@@ -18,6 +18,10 @@ jobs:
   lint:
     runs-on: ubuntu-latest
 
+    env: 
+      CI_COMMIT_MESSAGE: Continuous Integration Pretty Print
+      CI_COMMIT_AUTHOR: Continuous Integration
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -72,9 +76,11 @@ jobs:
           cd "$GITHUB_WORKSPACE/project/"
           if [[ "${{ inputs.config }}" != "" ]];
           then
-            "$GITHUB_WORKSPACE/glualint" --pretty-print --output-format github --config "$GITHUB_WORKSPACE/.glualint.json" lint .
+            "$GITHUB_WORKSPACE/glualint" --output-format github --config "$GITHUB_WORKSPACE/.glualint.json" lint .
+            "$GITHUB_WORKSPACE/glualint" --config "$GITHUB_WORKSPACE/.glualint.json" pretty-print .
           else
             "$GITHUB_WORKSPACE/glualint" --pretty-print --output-format github lint .
+            "$GITHUB_WORKSPACE/glualint" pretty-print .
           fi
 
       - name: Lint with GLuaLint
@@ -87,3 +93,11 @@ jobs:
           else
             "$GITHUB_WORKSPACE/glualint" --output-format github lint .
           fi
+
+      - name: GIT Commit Build Artifacts (coverage, dist, devdist, docs)
+        if: ${{ inputs.prettyprint == true }}
+        run: |
+          git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+          git config --global user.email "luiggi33@users.noreply.github.com"
+          git commit -a -m "${{ env.CI_COMMIT_MESSAGE }}"
+          git push
