@@ -98,5 +98,5 @@ jobs:
         uses: actions-js/push@master
         with:
           branch: master
-          directory: $GITHUB_WORKSPACE/project/
+          directory: project/
           github_token: ${{ secrets.GITHUB_TOKEN }}
