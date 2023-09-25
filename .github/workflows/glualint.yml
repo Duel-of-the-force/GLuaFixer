@@ -95,9 +95,10 @@ jobs:
             "$GITHUB_WORKSPACE/glualint" --output-format github lint .
           fi
 
-      - name: GIT Commit Build Artifacts (coverage, dist, devdist, docs)
+      - name: GIT Commit Pretty Print
         if: ${{ inputs.prettyprint == true }}
         run: |
+          cd "$GITHUB_WORKSPACE/project/"
           git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
           git config --global user.email "luiggi33@users.noreply.github.com"
           git commit -a -m "${{ env.CI_COMMIT_MESSAGE }}"
