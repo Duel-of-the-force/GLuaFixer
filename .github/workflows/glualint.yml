@@ -95,7 +95,7 @@ jobs:
             "$GITHUB_WORKSPACE/glualint" --output-format github lint .
           fi
 
-      - uses: EndBug/add-and-commit@v9
+      - uses: EndBug/add-and-commit@v8
         with:
           committer_name: GLua Fixer
           message: Apply pretty print
