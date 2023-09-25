@@ -18,14 +18,12 @@ jobs:
   lint:
     runs-on: ubuntu-latest
 
-    env: 
-      CI_COMMIT_MESSAGE: Continuous Integration Pretty Print
-      CI_COMMIT_AUTHOR: Continuous Integration
-
     steps:
       - uses: actions/checkout@v3
         with:
           path: project
+          persist-credentials: false
+          fetch-depth: 0
 
       - name: Get GluaLint Download Link
         id: download-link
@@ -95,9 +93,10 @@ jobs:
             "$GITHUB_WORKSPACE/glualint" --output-format github lint .
           fi
 
-      - uses: EndBug/add-and-commit@v8
+      - name: Commit & Push changes
+        if: ${{ inputs.prettyprint == true }}
+        uses: actions-js/push@master
         with:
-          committer_name: GLua Fixer
-          message: Apply pretty print
-          add: '*.lua --force'
-          cwd: '$GITHUB_WORKSPACE/project/'
+          branch: master
+          directory: "$GITHUB_WORKSPACE/project/"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
