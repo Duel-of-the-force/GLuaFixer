@@ -76,10 +76,10 @@ jobs:
           if [[ "${{ inputs.config }}" != "" ]];
           then
             "$GITHUB_WORKSPACE/glualint" --output-format github --config "$GITHUB_WORKSPACE/.glualint.json" lint .
-            "$GITHUB_WORKSPACE/glualint" --config "$GITHUB_WORKSPACE/.glualint.json" pretty-print .
+            "$GITHUB_WORKSPACE/glualint" --output-format github --config "$GITHUB_WORKSPACE/.glualint.json" pretty-print .
           else
-            "$GITHUB_WORKSPACE/glualint" --pretty-print --output-format github lint .
-            "$GITHUB_WORKSPACE/glualint" pretty-print .
+            "$GITHUB_WORKSPACE/glualint" --output-format github lint .
+            "$GITHUB_WORKSPACE/glualint" --output-format github pretty-print .
           fi
 
       - name: Lint with GLuaLint
