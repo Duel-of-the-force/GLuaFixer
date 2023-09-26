@@ -97,6 +97,6 @@ jobs:
         if: ${{ inputs.prettyprint == true }}
         uses: actions-js/push@master
         with:
-          branch: master
+          branch: main
           directory: project/
           github_token: ${{ secrets.GITHUB_TOKEN }}
