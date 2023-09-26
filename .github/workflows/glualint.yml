@@ -97,6 +97,6 @@ jobs:
         if: ${{ inputs.prettyprint == true }}
         uses: actions-js/push@master
         with:
-          branch: main
           directory: project/
+          message: 'chore: prettify code'
           github_token: ${{ secrets.GITHUB_TOKEN }}
