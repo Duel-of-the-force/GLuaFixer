@@ -75,8 +75,7 @@ jobs:
 
       - name: Pretty Print with GLuaLint
         if: |
-          ${{ inputs.prettyprint == true }} &&
-          ${{ github.event_name == 'push' }}
+          ${{ inputs.prettyprint == true && github.event_name == 'push' }}
         continue-on-error: true
         run: |
           cd "$GITHUB_WORKSPACE/project/"
@@ -100,8 +99,7 @@ jobs:
 
       - name: Commit & Push changes
         if: |
-          ${{ inputs.prettyprint == true }} &&
-          ${{ github.event_name == 'push' }}
+          ${{ inputs.prettyprint == true && github.event_name == 'push' }}
         uses: actions-js/push@master
         with:
           branch: ${{ inputs.branch }}
